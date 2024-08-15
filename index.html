@@ -6,33 +6,51 @@
     <title>lemon</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
             height: 100vh;
+            width: 100vw;
+            position: relative;
             font-family: Arial, sans-serif;
-        }
-        #countdown {
-            font-size: 48px;
-            margin-bottom: 20px;
+            background-color: white; /* Fallback background color */
         }
         #image {
             display: none;
-            max-width: 100%;
-            height: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure the image covers the whole viewport */
+            z-index: -1; /* Send the image to the background */
+        }
+        #countdown {
+            font-size: 48px;
+            color: black;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1; /* Ensure the countdown is above the image */
+            display: none; /* Initially hidden */
         }
         #startButton {
             font-size: 20px;
             padding: 10px 20px;
             cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            z-index: 1; /* Ensure the button is above the image */
         }
     </style>
 </head>
 <body>
 
 <button id="startButton">НАЖМИ</button>
-<div id="countdown" style="display: none;">5</div>
+<div id="countdown">5</div>
 <img id="image" src="https://cdn.discordapp.com/attachments/759328626717622283/1273699360101896243/5327920683629534637.jpg?ex=66bf9077&is=66be3ef7&hm=3edabb8b1e1f13b3655f67d3837d6b50776d2b9732a5a9dd23a4a817aeca346f&" alt="Image">
 <audio id="audio">
     <source src="lit.mp3" type="audio/mpeg">
@@ -57,7 +75,7 @@
             if (countdown === 0) {
                 clearInterval(interval);
                 countdownElement.style.display = 'none';
-                imageElement.style.display = 'block';
+                imageElement.style.display = 'block'; // Show the image
                 audioElement.play();
             }
         }, 1000);
